@@ -1,0 +1,8 @@
+---
+- hosts: tools
+  become: yes
+  vars_files:
+    - group_vars/secrets
+  roles:
+    - flux
+    - helm

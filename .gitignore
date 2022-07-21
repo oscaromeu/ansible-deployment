@@ -1,0 +1,7 @@
+roles
+.vaultpass
+logs
+ssh
+*.retry
+extra_vars*.yml
+.DS_Store
