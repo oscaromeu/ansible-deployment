@@ -1,0 +1,36 @@
+---
+- name: Manage Cluster
+  hosts: tools
+  gather_facts: no
+  become: true
+
+  tasks:
+
+  - name: Ping all the cluster nodes to see if they are alive 
+    ansible.builtin.ping:
+    tags:
+    - ping 
+
+  - name: Restart the k3s service 
+    systemd:
+      state: restarted
+      name: k3s
+    when: inventory_hostname == 'lbmwk4'
+    tags:
+    - restart 
+
+  - name: Shutdown the cluster 
+    block:
+      - name: Stop k3s service
+        systemd:
+          state: stop
+          name: k3s 
+        when: ansible_hostname == 'lbmwk4'
+
+      - name: Shutdown the nodes
+        community.general.shutdown:
+          delay: 10
+    become: true
+    ignore_errors: true
+    tags:
+    - shutdown 

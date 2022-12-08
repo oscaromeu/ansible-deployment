@@ -9,3 +9,7 @@
 - src: oscaromeu.helm
   version: 0.1.0
   name: helm
+
+- src: oscaromeu.k3s
+  version: 0.1.0
+  name: k3s
